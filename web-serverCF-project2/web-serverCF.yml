@@ -45,14 +45,13 @@ Resources:
     Type: 'AWS::AutoScaling::LaunchConfiguration'
     Properties:
       ImageId: "ami-0ee23bfc74a881de5" 
-      UserData: !Base64 
-        'Fn::Sub': |-
+      UserData:
+        Fn::Base64: !Sub |
           #!/bin/bash
-          sudo apt-get update -y
-          sudo apt-get install apache2 -y
+          sudo apt update -y
+          sudo apt install apache2 -y
           sudo systemctl start apache2.service
-          sudo cd /var/www/html
-          sudo echo "it works! Udagram, Udacity" > index.html
+          sudo echo  "It works! Udagram, Udacity" > /var/www/html/index.html
       SecurityGroups:
         - !Ref WebServerSecGroup
       InstanceType: t3.medium
